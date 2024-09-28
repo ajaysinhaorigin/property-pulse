@@ -6,7 +6,6 @@ export const metadata: Metadata = {
   title: "Property Pulse | Find Rentals Near You",
   description: "Find Rental properties Near You",
 }
-
 export default function RootLayout({
   children,
 }: Readonly<{
