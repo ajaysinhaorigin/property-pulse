@@ -1,8 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import Image from "next/image"
+import connectDB from "@/Config/dbConnection"
+import { Hero, HomeProperties, InfoBoxes } from "@/Shared"
 
-const Home = () => {
-  return <div>Home Page</div>
+const Home = async () => {
+  await connectDB()
+  console.log(process.env.MONGODB_URI)
+  return (
+    <>
+      <Hero />
+      <InfoBoxes />
+      <HomeProperties />
+    </>
+  )
 }
 
 export default Home
