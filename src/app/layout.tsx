@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Navbar } from "@/Shared"
+import { Footer, Navbar } from "@/Shared"
 import "../Shared/Styles/global.styles.css"
 
 export const metadata: Metadata = {
@@ -16,6 +16,7 @@ export default function RootLayout({
       <body>
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )
