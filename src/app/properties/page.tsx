@@ -1,26 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react"
-
-import { PropertyCard } from "@/Shared"
-
-async function getProperties() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`)
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch properties")
-    }
-    return res.json()
-  } catch (error) {
-    console.log("erorr", error)
-  }
-}
+import { getProperties, PropertyCard } from "@/Shared"
 
 const Properties = async () => {
   const properties = await getProperties()
-  console.log('properties', properties.properties.length)
+  console.log("properties", properties.properties.length)
 
-    // properties.properties.sort((a: any, b:any) => new Date(b.createdAt) - new Date(a.createdAt))
+  // properties.properties.sort((a: any, b:any) => new Date(b.createdAt) - new Date(a.createdAt))
 
   return (
     <section className="px-4 py-6">

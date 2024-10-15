@@ -1,19 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from "next/link"
-import { PropertyCard } from "@/Shared"
-
-async function getProperties() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`)
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch properties")
-    }
-    return res.json()
-  } catch (error) {
-    console.log("erorr", error)
-  }
-}
+import { getProperties, PropertyCard } from "@/Shared"
 
 const HomeProperties = async () => {
   const properties = await getProperties()
