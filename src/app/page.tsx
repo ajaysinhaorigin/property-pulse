@@ -1,5 +1,5 @@
 import connectDB from "@/Config/dbConnection"
-import { Hero, HomeProperties, InfoBoxes } from "@/Shared"
+import { FeaturedProperties, Hero, HomeProperties, InfoBoxes } from "@/Shared"
 
 const Home = async () => {
   await connectDB()
@@ -8,6 +8,7 @@ const Home = async () => {
     <>
       <Hero />
       <InfoBoxes />
+      <FeaturedProperties />
       <HomeProperties />
     </>
   )

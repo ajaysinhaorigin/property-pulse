@@ -8,7 +8,6 @@ import { BookmarkButton, getProperty, PropertyContactForm, PropertyDetails, Prop
 
 const PropertyPage = () => {
   const { id } = useParams();
-
   const [property, setProperty] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 

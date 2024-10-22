@@ -1,12 +1,11 @@
 import connectDB from "@/Config/dbConnection"
-import Property from "@/models/Propertry"
+import Property from "@/Models/Propertry"
 import { getSessionUser } from "@/Shared/Utils/getSessionUser"
 
 // GET /api/properties/:id
 export const GET = async (request, { params }) => {
   try {
     await connectDB();
-
     const property = await Property.findById(params.id);
 
     if (!property) return new Response('Property Not Found', { status: 404 });

@@ -1,5 +1,5 @@
-import User from '@/models/User';
-import Property from "@/models/Propertry"
+import User from '@/Models/User';
+import Property from "@/Models/Propertry"
 import connectDB from "@/Config/dbConnection"
 import { getSessionUser } from "@/Shared/Utils/getSessionUser"
 

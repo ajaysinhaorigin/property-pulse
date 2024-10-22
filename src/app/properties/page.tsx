@@ -1,6 +1,3 @@
-// import PropertySearchForm from '@/components/PropertySearchForm';
-// import Properties from '@/components/Properties';
-
 import { Properties, PropertySearchForm } from "@/Shared";
 
 const PropertiesPage = async () => {

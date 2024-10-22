@@ -10,7 +10,7 @@ const Properties = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(6);
+  const [pageSize, setPageSize] = useState(9);
   const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
