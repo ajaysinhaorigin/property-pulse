@@ -4,13 +4,13 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
-import profileDefault from "@/assets/images/profile.png"
 import { toast } from "react-toastify"
 import { Spinner } from "@/Shared"  
+import { ProfileDefault } from "@/Assets"
 
 const ProfilePage = () => {
   const { data: session }: any = useSession()
-  const profileImage = session?.user?.image
+  const profileImage = session?.use?.image
   const profileName = session?.user?.name
   const profileEmail = session?.user?.email
 
@@ -83,7 +83,7 @@ const ProfilePage = () => {
               <div className="mb-4">
                 <Image
                   className="h-32 w-32 md:h-48 md:w-48 rounded-full mx-auto md:mx-0"
-                  src={profileImage || profileDefault}
+                  src={profileImage || ProfileDefault}
                   width={200}
                   height={200}
                   alt="User"

@@ -1,5 +1,5 @@
-import connectDB from '@/config/database';
-import Property from '@/models/Property';
+import connectDB from "@/Config/dbConnection"
+import Property from "@/Models/Propertry"
 
 // GET /api/properties/featured
 export const GET = async (request) => {

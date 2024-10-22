@@ -1,5 +1,5 @@
 import connectDB from "@/Config/dbConnection"
-import Property from "@/models/Propertry"
+import Property from "@/Models/Propertry"
 import { getSessionUser } from "@/Shared/Utils/getSessionUser"
 import cloudinary from "@/Config/cloudinary"
 
@@ -9,7 +9,7 @@ export const GET = async (request) => {
     await connectDB() 
 
     const page = request.nextUrl.searchParams.get("page") || 1
-    const pageSize = request.nextUrl.searchParams.get("pageSize") || 10
+    const pageSize = request.nextUrl.searchParams.get("pageSize") || 9
 
     const skip = (page - 1) * pageSize
 
@@ -41,7 +41,6 @@ export const POST = async (request) => {
     }
 
     const { userId } = sessionUser
-
     const formData = await request.formData()
 
     // Access all values from amenities and images

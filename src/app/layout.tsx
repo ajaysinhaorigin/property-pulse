@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import { AuthProvider, Footer, Navbar } from "@/Shared"
-import "../Shared/Styles/global.styles.css"
 import { ToastContainer } from 'react-toastify';
+import "../Shared/Styles/global.styles.css"
 import 'react-toastify/dist/ReactToastify.css';
+import 'photoswipe/dist/photoswipe.css'
+import { GlobalProvider } from "@/Shared/Context/GlobalContext";
 
 export const metadata: Metadata = {
   title: "Property Pulse | Find Rentals Near You",
@@ -15,15 +17,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <AuthProvider>
-      <html lang="en">
-        <body>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <ToastContainer />
-        </body>
-      </html>
-    </AuthProvider>
+    <GlobalProvider>
+      <AuthProvider>
+        <html lang='en'>
+          <body>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <ToastContainer />
+          </body>
+        </html>
+      </AuthProvider>
+    </GlobalProvider>
   )
 }

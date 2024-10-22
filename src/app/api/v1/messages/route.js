@@ -1,4 +1,4 @@
-import Message from '@/models/Message';
+import Message from '@/Models/Message';
 import connectDB from "@/Config/dbConnection"
 import { getSessionUser } from "@/Shared/Utils/getSessionUser"
 
@@ -33,6 +33,8 @@ export const GET = async () => {
       .populate('property', 'name');
 
     const messages = [...unreadMessages, ...readMessages];
+
+    console.log('messages',messages)
 
     return new Response(JSON.stringify(messages), { status: 200 });
   } catch (error) {
