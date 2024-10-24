@@ -3,7 +3,6 @@ import { AuthProvider, Footer, Navbar } from "@/Shared"
 import { ToastContainer } from 'react-toastify';
 import "../Shared/Styles/global.styles.css"
 import 'react-toastify/dist/ReactToastify.css';
-import 'photoswipe/dist/photoswipe.css'
 import { GlobalProvider } from "@/Shared/Context/GlobalContext";
 
 export const metadata: Metadata = {

@@ -7,7 +7,9 @@ import {
   FaCheck,
   FaMapMarker,
 } from "react-icons/fa"
-//   import PropertyMap from '@/components/PropertyMap';
+import dynamic from 'next/dynamic';
+const PropertyMap = dynamic(() => import('../PropertyMap/PropertyMap'), { ssr: false });
+
 
 interface Props {
   property: any
@@ -96,9 +98,9 @@ const PropertyDetails = ({ property }: Props) => {
           ))}
         </ul>
       </div>
-      {/* <div className='bg-white p-6 rounded-lg shadow-md mt-6'>
+      <div className='bg-white p-6 rounded-lg shadow-md mt-6'>
           <PropertyMap property={property} />
-        </div> */}
+        </div>
     </main>
   )
 }
