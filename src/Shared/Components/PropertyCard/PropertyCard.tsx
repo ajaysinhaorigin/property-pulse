@@ -1,39 +1,29 @@
-import Image from "next/image"
-import Link from "next/link"
-import {
-  FaBed,
-  FaBath,
-  FaRulerCombined,
-  FaMoneyBill,
-  FaMapMarker,
-} from "react-icons/fa"
+import { PropertyModel } from '@/Shared/Models';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FaBed, FaBath, FaRulerCombined, FaMoneyBill, FaMapMarker } from 'react-icons/fa';
 
 type Props = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  property: any
-}
+  property: PropertyModel;
+};
 
 const PropertyCard = ({ property }: Props) => {
   const getRateDisplay = () => {
-    const { rates } = property
+    const { rates } = property;
 
     if (rates.monthly) {
-      return `${rates.monthly.toLocaleString()}/mo`
+      return `${rates.monthly.toLocaleString()}/mo`;
     } else if (rates.weekly) {
-      return `${rates.weekly.toLocaleString()}/wk`
+      return `${rates.weekly.toLocaleString()}/wk`;
     } else if (rates.nightly) {
-      return `${rates.nightly.toLocaleString()}/night`
+      return `${rates.nightly.toLocaleString()}/night`;
     }
-  }
+  };
 
   return (
     <div className="rounded-xl shadow-md relative">
       <Image
-        src={
-          property.images[0].includes("http")
-            ? property.images[0]
-            : `/images/properties/${property.images[0]}`
-        }
+        src={property.images[0].includes('http') ? property.images[0] : `/images/properties/${property.images[0]}`}
         alt=""
         height={0}
         width={0}
@@ -51,8 +41,7 @@ const PropertyCard = ({ property }: Props) => {
 
         <div className="flex justify-center gap-4 text-gray-500 mb-4">
           <p>
-            <FaBed className="inline mr-2" /> {property.beds}{" "}
-            <span className="md:hidden lg:inline">Beds</span>
+            <FaBed className="inline mr-2" /> {property.beds} <span className="md:hidden lg:inline">Beds</span>
           </p>
           <p>
             <FaBath className="inline mr-2" />
@@ -60,8 +49,7 @@ const PropertyCard = ({ property }: Props) => {
           </p>
           <p>
             <FaRulerCombined className="inline mr-2" />
-            {property.square_feet}{" "}
-            <span className="md:hidden lg:inline">sqft</span>
+            {property.square_feet} <span className="md:hidden lg:inline">sqft</span>
           </p>
         </div>
 
@@ -91,12 +79,11 @@ const PropertyCard = ({ property }: Props) => {
           <div className="flex align-middle gap-2 mb-4 lg:mb-0">
             <FaMapMarker className="text-orange-700 mt-1" />
             <span className="text-orange-700">
-              {" "}
-              {property.location.city} {property.location.state}{" "}
+              {property.location.city} {property.location.state}{' '}
             </span>
           </div>
           <Link
-            href={`/properties/${property._id}`}
+            href={`/properties/${property.id}`}
             className="h-[36px] bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm"
           >
             Details
@@ -104,6 +91,6 @@ const PropertyCard = ({ property }: Props) => {
         </div>
       </div>
     </div>
-  )
-}
-export default PropertyCard
+  );
+};
+export default PropertyCard;

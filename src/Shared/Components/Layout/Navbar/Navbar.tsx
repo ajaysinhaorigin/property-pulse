@@ -1,32 +1,35 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { LogoWhite, ProfileDefault } from "@/Assets/images"
-import Link from "next/link"
-import { FaGoogle } from "react-icons/fa"
-import { usePathname } from "next/navigation"
-import { signIn, signOut, useSession, getProviders } from "next-auth/react"
-import UnreadMessageCount from "../../UnreadMessageCount/UnreadMessageCount"
+'use client';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { LogoWhite, ProfileDefault } from '@/Assets/images';
+import Link from 'next/link';
+import { FaGoogle } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
+import { signIn, signOut, useSession, getProviders, LiteralUnion, ClientSafeProvider } from 'next-auth/react';
+import UnreadMessageCount from '../../UnreadMessageCount/UnreadMessageCount';
+import { BuiltInProviderType } from 'next-auth/providers/index';
 
 const Navbar = () => {
-  const { data: session } = useSession()
-  const profileImage = session?.user?.image
+  const { data: session } = useSession();
+  const profileImage = session?.user?.image;
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
-  const [providers, setProviders] = useState<any>(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [providers, setProviders] = useState<Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null>(null);
 
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   useEffect(() => {
-    const setAuthProviders = async () => {
-      const res = await getProviders()
-      setProviders(res)
-    }
+    setAuthProviders();
+  }, []);
 
-    setAuthProviders()
-  }, [])
+  const setAuthProviders = async () => {
+    const res = await getProviders();
+    setProviders(res);
+  };
 
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
@@ -52,11 +55,7 @@ const Navbar = () => {
                 stroke="currentColor"
                 aria-hidden="true"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
               </svg>
             </button>
           </div>
@@ -64,15 +63,9 @@ const Navbar = () => {
           <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
             {/* <!-- Logo --> */}
             <Link className="flex flex-shrink-0 items-center" href="/">
-              <Image
-                className="h-10 w-auto"
-                src={LogoWhite}
-                alt="PropertyPulse"
-              />
+              <Image className="h-10 w-auto" src={LogoWhite} alt="PropertyPulse" />
 
-              <span className="hidden md:block text-white text-2xl font-bold ml-2">
-                PropertyPulse
-              </span>
+              <span className="hidden md:block text-white text-2xl font-bold ml-2">PropertyPulse</span>
             </Link>
             {/* <!-- Desktop Menu Hidden below md screens --> */}
             <div className="hidden md:ml-6 md:block">
@@ -80,7 +73,7 @@ const Navbar = () => {
                 <Link
                   href="/"
                   className={`${
-                    pathname === "/" ? "bg-black" : ""
+                    pathname === '/' ? 'bg-black' : ''
                   } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Home
@@ -88,7 +81,7 @@ const Navbar = () => {
                 <Link
                   href="/properties"
                   className={`${
-                    pathname === "/properties" ? "bg-black" : ""
+                    pathname === '/properties' ? 'bg-black' : ''
                   } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Properties
@@ -97,7 +90,7 @@ const Navbar = () => {
                   <Link
                     href="/properties/add"
                     className={`${
-                      pathname === "/properties/add" ? "bg-black" : ""
+                      pathname === '/properties/add' ? 'bg-black' : ''
                     } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                   >
                     Add Property
@@ -208,8 +201,8 @@ const Navbar = () => {
                     </Link>
                     <button
                       onClick={() => {
-                        setIsProfileMenuOpen(false)
-                        signOut()
+                        setIsProfileMenuOpen(false);
+                        signOut();
                       }}
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
@@ -232,15 +225,14 @@ const Navbar = () => {
           <div className="space-y-1 px-2 pb-3 pt-2">
             <Link
               href="/"
-              // className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-              className={`${pathname === "/" ? "bg-black" : ""} 
+              className={`${pathname === '/' ? 'bg-black' : ''} 
               className="bg-gray-900 text-white block rounded-md px-3 py-2 mr-1 text-base font-medium`}
             >
               Home
             </Link>
             <Link
               href="/properties"
-              className={`${pathname === "/properties" ? "bg-black" : ""} 
+              className={`${pathname === '/properties' ? 'bg-black' : ''} 
               className="bg-gray-900 text-white block rounded-md px-3 mr-1 py-2 text-base font-medium`}
             >
               Properties
@@ -248,7 +240,7 @@ const Navbar = () => {
             {session && (
               <Link
                 href="/properties/add"
-                className={`${pathname === "/properties/add" ? "bg-black" : ""} 
+                className={`${pathname === '/properties/add' ? 'bg-black' : ''} 
               className="bg-gray-900 text-white block rounded-md px-3 py-2 mr-1 text-base font-medium`}
               >
                 Add Property
@@ -270,7 +262,7 @@ const Navbar = () => {
         </div>
       )}
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
