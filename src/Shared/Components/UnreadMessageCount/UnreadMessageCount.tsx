@@ -1,33 +1,33 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-import { useGlobalContext } from "@/Shared/Context/GlobalContext"
-import { useEffect } from "react"
+'use client';
+import { useEffect } from 'react';
+import { useGlobalContext } from '@/Shared/Context/GlobalContext';
+import { apiUrls } from '@/Shared/Tools';
 
 interface Props {
-  session: any
+  session: any;
 }
 
 const UnreadMessageCount = ({ session }: Props) => {
-  const { unreadCount, setUnreadCount }: any = useGlobalContext()
+  const { unreadCount, setUnreadCount } = useGlobalContext();
 
   useEffect(() => {
-    if (!session) return
+    if (!session) return;
 
-    const fetchUnreadMessages = async () => {
-      try {
-        const res = await fetch("/api/v1/messages/unread-count")
+    fetchUnreadMessages();
+  }, [session]);
 
-        if (res.status === 200) {
-          const data = await res.json()
-          setUnreadCount(data)
-        }
-      } catch (error) {
-        console.log(error)
+  const fetchUnreadMessages = async () => {
+    try {
+      const res = await fetch(apiUrls.unReadMessagesCount);
+
+      if (res.status === 200) {
+        const data = await res.json();
+        setUnreadCount(data);
       }
+    } catch (error) {
+      console.log(error);
     }
-
-    fetchUnreadMessages()
-  }, [session])
+  };
 
   return (
     unreadCount > 0 && (
@@ -35,6 +35,6 @@ const UnreadMessageCount = ({ session }: Props) => {
         {unreadCount}
       </span>
     )
-  )
-}
-export default UnreadMessageCount
+  );
+};
+export default UnreadMessageCount;

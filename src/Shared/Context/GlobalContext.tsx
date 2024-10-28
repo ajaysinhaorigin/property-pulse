@@ -1,9 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import { createContext, useContext, useState } from 'react';
+import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
+// Define the shape of the context
+interface GlobalContextType {
+  unreadCount: number;
+  setUnreadCount: Dispatch<SetStateAction<number>>;
+}
 
-// Create context
-const GlobalContext = createContext({});
+// Create context with a default value
+const GlobalContext = createContext<GlobalContextType | null>(null);
 
 // Create a provider
 export function GlobalProvider({ children }: any) {
@@ -23,5 +27,9 @@ export function GlobalProvider({ children }: any) {
 
 // Create a custom hook to access context
 export function useGlobalContext() {
-  return useContext(GlobalContext);
+  const context = useContext(GlobalContext);
+  if (context === null) {
+    throw new Error('useGlobalContext must be used within a GlobalProvider');
+  }
+  return context;
 }

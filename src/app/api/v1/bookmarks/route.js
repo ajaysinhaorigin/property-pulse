@@ -1,7 +1,7 @@
 import User from '@/Models/User';
-import Property from "@/Models/Propertry"
-import connectDB from "@/Config/dbConnection"
-import { getSessionUser } from "@/Shared/Utils/getSessionUser"
+import Property from '@/Models/Propertry';
+import connectDB from '@/Config/dbConnection';
+import { getSessionUser } from '@/Shared/Utils/getSessionUser';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,7 +31,7 @@ export const GET = async () => {
   }
 };
 
-export const POST = async (request) => {
+export const POST = async request => {
   try {
     await connectDB();
 
@@ -49,7 +49,6 @@ export const POST = async (request) => {
     const user = await User.findOne({ _id: userId });
 
     // Check if property is bookmarked
-    console.log('user ----------',user)
     let isBookmarked = user.bookmarks.includes(propertyId);
 
     let message;

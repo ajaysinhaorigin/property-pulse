@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from "next/link"
-import { getProperties, PropertyCard } from "@/Shared"
+import { getProperties, PropertyCard, PropertyModel } from "@/Shared"
 
 const HomeProperties = async () => {
   const properties = await getProperties()
 
-  const recentProperties = properties.properties
+  const recentProperties = properties
     .sort(() => Math.random() - Math.random())
     .slice(0, 3)
 
@@ -20,8 +19,8 @@ const HomeProperties = async () => {
             {recentProperties.length === 0 ? (
               <p>No Properties Found</p>
             ) : (
-              recentProperties.map((property:any) => (
-                <PropertyCard key={property._id} property={property} />
+              recentProperties.map((property:PropertyModel) => (
+                <PropertyCard key={property.id} property={property} />
               ))
             )}
           </div>

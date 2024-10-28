@@ -1,3 +1,5 @@
+import { PropertyModel } from "../Models";
+
 const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null
 
 // Fetch all properties
@@ -16,8 +18,8 @@ async function getProperties({ showFeatured = false } = {}) {
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
-
-    return res.json();
+    const data = await res.json();
+    return PropertyModel.deserializeList(data.properties);
   } catch (error) {
     console.log(error);
     return [];
