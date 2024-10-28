@@ -1,44 +1,45 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-'use client';
-import { useState, useEffect } from 'react';
-import Spinner from '../Spinner/Spinner';
-import PropertyCard from '../PropertyCard/PropertyCard';
-import Pagination from '../Pagination/Pagination';
-import { apiUrls } from '@/Shared/Tools';
-import { PropertyModel } from '@/Shared/Models';
+"use client"
+import { useState, useEffect } from "react"
+import Spinner from "../Spinner/Spinner"
+import PropertyCard from "../PropertyCard/PropertyCard"
+import Pagination from "../Pagination/Pagination"
+import { apiUrls } from "@/Shared/Tools"
+import { PropertyModel } from "@/Shared/Models"
 
 const Properties = () => {
-  const [properties, setProperties] = useState<PropertyModel[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(9);
-  const [totalItems, setTotalItems] = useState(0);
+  const [properties, setProperties] = useState<PropertyModel[]>([])
+  const [loading, setLoading] = useState(true)
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(9)
+  const [totalItems, setTotalItems] = useState(0)
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const res = await fetch(`${apiUrls.properties}?page=${page}&pageSize=${pageSize}`);
+    fetchProperties()
+  }, [page, pageSize])
 
-        if (!res.ok) {
-          throw new Error('Failed to fetch data');
-        }
+  const fetchProperties = async () => {
+    try {
+      const res = await fetch(
+        `${apiUrls.properties}?page=${page}&pageSize=${pageSize}`
+      )
 
-        const data = await res.json();
-        setProperties(PropertyModel.deserializeList(data.properties));
-        setTotalItems(data.total);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
+      if (!res.ok) {
+        throw new Error("Failed to fetch data")
       }
-    };
 
-    fetchProperties();
-  }, [page, pageSize]);
+      const data = await res.json()
+      setProperties(PropertyModel.deserializeList(data.properties))
+      setTotalItems(data.total)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
+    setPage(newPage)
+  }
 
   return loading ? (
     <Spinner />
@@ -54,9 +55,14 @@ const Properties = () => {
             ))}
           </div>
         )}
-        <Pagination page={page} pageSize={pageSize} totalItems={totalItems} onPageChange={handlePageChange} />
+        <Pagination
+          page={page}
+          pageSize={pageSize}
+          totalItems={totalItems}
+          onPageChange={handlePageChange}
+        />
       </div>
     </section>
-  );
-};
-export default Properties;
+  )
+}
+export default Properties

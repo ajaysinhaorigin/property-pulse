@@ -47,7 +47,7 @@ const PropertyEditForm = () => {
 
         // Check rates for null, if so then make empty string
         if (propertyData && propertyData.rates) {
-          const defaultRates = { ...propertyData.rates }
+          const defaultRates: any = { ...propertyData.rates }
           for (const rate in defaultRates) {
             if (defaultRates[rate] === null) {
               defaultRates[rate] = ""
