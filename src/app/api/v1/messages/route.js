@@ -34,8 +34,6 @@ export const GET = async () => {
 
     const messages = [...unreadMessages, ...readMessages];
 
-    console.log('messages',messages)
-
     return new Response(JSON.stringify(messages), { status: 200 });
   } catch (error) {
     console.log(error);

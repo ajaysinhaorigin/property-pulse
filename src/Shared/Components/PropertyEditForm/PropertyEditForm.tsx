@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 import { getProperty } from "@/Shared/Utils"
+import { apiUrls } from "@/Shared/Tools"
 
 const PropertyEditForm = () => {
   const { id } = useParams()
@@ -120,7 +121,7 @@ const PropertyEditForm = () => {
     try {
       const formData = new FormData(e.target)
 
-      const res = await fetch(`/api/v1/properties/${id}`, {
+      const res = await fetch(`${apiUrls.properties}/${id}`, {
         method: "PUT",
         body: formData,
       })

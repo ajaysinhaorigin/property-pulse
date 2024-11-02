@@ -5,8 +5,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { toast } from "react-toastify"
-import { Spinner } from "@/Shared"  
+import { PropertyModel, Spinner } from "@/Shared"
 import { ProfileDefault } from "@/Assets"
+import { apiUrls } from "@/Shared/Tools"
 
 const ProfilePage = () => {
   const { data: session }: any = useSession()
@@ -14,34 +15,34 @@ const ProfilePage = () => {
   const profileName = session?.user?.name
   const profileEmail = session?.user?.email
 
-  const [properties, setProperties] = useState<any>([])
+  const [properties, setProperties] = useState<PropertyModel[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchUserProperties = async (userId: string) => {
-      if (!userId) {
-        return
-      }
-
-      try {
-        const res = await fetch(`/api/v1/properties/user/${userId}`)
-
-        if (res.status === 200) {
-          const data = await res.json()
-          setProperties(data)
-        }
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
     // Fetch user properties when session is available
     if (session?.user && session?.user?.id) {
       fetchUserProperties(session.user.id)
     }
   }, [session])
+
+  const fetchUserProperties = async (userId: string) => {
+    if (!userId) {
+      return
+    }
+
+    try {
+      const res = await fetch(`${apiUrls.properties}/user/${userId}`)
+
+      if (res.status === 200) {
+        const data = await res.json()
+        setProperties(PropertyModel.deserializeList(data))
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleDeleteProperty = async (propertyId: string) => {
     const confirmed = window.confirm(
@@ -51,18 +52,17 @@ const ProfilePage = () => {
     if (!confirmed) return
 
     try {
-      const res = await fetch(`/api/v1/properties/${propertyId}`, {
+      const res = await fetch(`${apiUrls.properties}/${propertyId}`, {
         method: "DELETE",
       })
 
       if (res.status === 200) {
         // Remove the property from state
         const updatedProperties = properties.filter(
-          (property: any) => property._id !== propertyId
+          (property) => property.id !== propertyId
         )
 
         setProperties(updatedProperties)
-
         toast.success("Property Deleted")
       } else {
         toast.error("Failed to delete property")
@@ -105,9 +105,9 @@ const ProfilePage = () => {
               {loading ? (
                 <Spinner />
               ) : (
-                properties.map((property: any) => (
-                  <div key={property._id} className="mb-10">
-                    <Link href={`/properties/${property._id}`}>
+                properties.map((property) => (
+                  <div key={property.id} className="mb-10">
+                    <Link href={`/properties/${property.id}`}>
                       <Image
                         className="h-32 w-full rounded-md object-cover"
                         src={property.images[0]}
@@ -120,19 +120,19 @@ const ProfilePage = () => {
                     <div className="mt-2">
                       <p className="text-lg font-semibold">{property.name}</p>
                       <p className="text-gray-600">
-                        Address: {property.location.street}{" "}
+                        Address: {property.location.street}
                         {property.location.city} {property.location.state}
                       </p>
                     </div>
                     <div className="mt-2">
                       <Link
-                        href={`/properties/${property._id}/edit`}
+                        href={`/properties/${property.id}/edit`}
                         className="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
                       >
                         Edit
                       </Link>
                       <button
-                        onClick={() => handleDeleteProperty(property._id)}
+                        onClick={() => handleDeleteProperty(property.id)}
                         className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
                         type="button"
                       >

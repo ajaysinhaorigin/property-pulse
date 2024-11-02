@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import { useState, useEffect } from "react"
+import { apiUrls } from "@/Shared/Tools"
+import { useState, useEffect, ChangeEvent } from "react"
 
 const PropertyAddForm = () => {
   const [mounted, setMounted] = useState(false)
@@ -17,7 +18,7 @@ const PropertyAddForm = () => {
     beds: "",
     baths: "",
     square_feet: "",
-    amenities: [''],
+    amenities: [""],
     rates: {
       weekly: "",
       monthly: "",
@@ -28,7 +29,7 @@ const PropertyAddForm = () => {
       email: "",
       phone: "",
     },
-    images: [],
+    images: [""],
   })
 
   useEffect(() => {
@@ -57,11 +58,11 @@ const PropertyAddForm = () => {
       }))
     }
   }
-  const handleAmenitiesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAmenitiesChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target
 
     // Clone the current array
-    const updatedAmenites = [...fields.amenities] as any
+    const updatedAmenites = [...fields.amenities]
 
     if (checked) {
       // Add value to array
@@ -82,11 +83,11 @@ const PropertyAddForm = () => {
     }))
   }
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files as FileList
 
     // Clone images array
-    const updatedImages = [...fields.images] as any
+    const updatedImages = [...fields.images]
 
     // Add new files to the array
     for (const file of files as any) {
@@ -103,7 +104,7 @@ const PropertyAddForm = () => {
   return (
     mounted && (
       <form
-        action="/api/v1/properties"
+        action={apiUrls.properties}
         method="POST"
         encType="multipart/form-data"
       >

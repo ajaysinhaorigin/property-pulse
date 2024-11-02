@@ -8,7 +8,6 @@ import { apiUrls } from '@/Shared/Tools';
 
 const SearchResultsPage = () => {
   const searchParams = useSearchParams();
-
   const [properties, setProperties] = useState<PropertyModel[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,13 +34,12 @@ const SearchResultsPage = () => {
       setLoading(false);
     }
   };
-  console.log('properties', properties);
 
   return (
     <>
       <section className="bg-blue-700 py-4">
         <div className="max-w-7xl mx-auto px-4 flex flex-col items-start sm:px-6 lg:px-8">
-          <PropertySearchForm />
+          <PropertySearchForm storedPropertyType={propertyType as string}  />
         </div>
       </section>
       {loading ? (

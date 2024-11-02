@@ -28,7 +28,7 @@ const PropertyPage = () => {
     try {
       const response = await fetch(`${apiUrls.properties}/${id}`)
       const property = await response.json()
-      setProperty(property)
+      setProperty(PropertyModel.deserialize(property))
     } catch (error) {
       console.error("Error fetching property:", error)
     } finally {

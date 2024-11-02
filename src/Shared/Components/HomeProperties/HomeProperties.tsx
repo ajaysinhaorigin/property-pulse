@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { getProperties, PropertyCard, PropertyModel } from "@/Shared"
+import { getProperties, PropertyCard } from "@/Shared"
 
 const HomeProperties = async () => {
   const properties = await getProperties()

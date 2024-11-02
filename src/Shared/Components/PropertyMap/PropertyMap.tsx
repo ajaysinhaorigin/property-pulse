@@ -2,12 +2,10 @@
 import { useEffect, useState } from "react"
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
-import Image from "next/image"
 import Spinner from "../Spinner/Spinner"
-import { Pin } from "@/Assets"
+import { PropertyModel } from "@/Shared/Models"
 
 import L from "leaflet"
-import { PropertyModel } from "@/Shared/Models"
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -46,10 +44,7 @@ const PropertyMap = ({ property }: Props) => {
         setLoading(false)
         return
       }
-      console.log("data", data)
-      const filteredData = data.find((item:any) => item.lat && item.lon)
-
-      console.log("filteredData", filteredData)
+      const filteredData = data.find((item: any) => item.lat && item.lon)
       setCoordinates({
         lat: filteredData.lat,
         lng: filteredData.lon,
@@ -71,12 +66,7 @@ const PropertyMap = ({ property }: Props) => {
     }
   }
 
-  console.log(
-    "location",
-    `${property.location.street} ${property.location.city} ${property.location.state} ${property.location.zipcode}`
-  )
   if (loading) return <Spinner />
-
   if (geocodeError) {
     return <div className="text-xl">No location data found</div>
   }
@@ -94,7 +84,6 @@ const PropertyMap = ({ property }: Props) => {
 
       <Marker position={[coordinates.lat, coordinates.lng]}>
         <Popup>{address}</Popup>
-        <Image src={Pin} alt="location" width={40} height={40} />
       </Marker>
     </MapContainer>
   )

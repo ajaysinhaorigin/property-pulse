@@ -1,22 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { useGlobalContext } from "@/Shared/Context/GlobalContext"
+import { MessageModel } from "@/Shared/Models"
+import { apiUrls } from "@/Shared/Tools"
 import { useState } from "react"
 import { toast } from "react-toastify"
 
 interface Props {
-  message: any
+  message: MessageModel
 }
 
 const Message = ({ message }: Props) => {
   const [isRead, setIsRead] = useState(message.read)
   const [isDeleted, setIsDeleted] = useState(false)
 
-  const { setUnreadCount }: any = useGlobalContext()
+  const { setUnreadCount } = useGlobalContext()
 
   const handleReadClick = async () => {
     try {
-      const res = await fetch(`/api/v1/messages/${message._id}`, {
+      const res = await fetch(`${apiUrls.messages}/${message.id}`, {
         method: "PUT",
       })
       if (res.status === 200) {
@@ -39,7 +40,7 @@ const Message = ({ message }: Props) => {
 
   const handleDeleteClick = async () => {
     try {
-      const res = await fetch(`/api/v1/messages/${message._id}`, {
+      const res = await fetch(`${apiUrls.messages}/${message.id}`, {
         method: "DELETE",
       })
 
@@ -66,7 +67,7 @@ const Message = ({ message }: Props) => {
         </div>
       )}
       <h2 className="text-xl mb-4">
-        <span className="font-bold">Property Inquiry:</span>{" "}
+        <span className="font-bold">Property Inquiry:</span>
         {message.property.name}
       </h2>
       <p className="text-gray-700">{message.body}</p>
@@ -77,19 +78,19 @@ const Message = ({ message }: Props) => {
         </li>
 
         <li>
-          <strong>Reply Email:</strong>{" "}
+          <strong>Reply Email:</strong>
           <a href={`mailto:${message.email}`} className="text-blue-500">
             {message.email}
           </a>
         </li>
         <li>
-          <strong>Reply Phone:</strong>{" "}
+          <strong>Reply Phone:</strong>
           <a href={`tel:${message.phone}`} className="text-blue-500">
             {message.phone}
           </a>
         </li>
         <li>
-          <strong>Received:</strong>{" "}
+          <strong>Received:</strong>
           {new Date(message.createdAt).toLocaleString()}
         </li>
       </ul>
@@ -110,4 +111,5 @@ const Message = ({ message }: Props) => {
     </div>
   )
 }
+
 export default Message
