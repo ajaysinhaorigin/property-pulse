@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   FaBed,
   FaBath,
@@ -8,11 +7,11 @@ import {
   FaMapMarker,
 } from "react-icons/fa"
 import dynamic from 'next/dynamic';
+import { PropertyModel } from "@/Shared/Models";
 const PropertyMap = dynamic(() => import('../PropertyMap/PropertyMap'), { ssr: false });
 
-
 interface Props {
-  property: any
+  property: PropertyModel
 }
 
 const PropertyDetails = ({ property }: Props) => {
@@ -91,7 +90,7 @@ const PropertyDetails = ({ property }: Props) => {
         <h3 className="text-lg font-bold mb-6">Amenities</h3>
 
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 list-none space-y-2">
-          {property.amenities.map((amenity: any, index: number) => (
+          {property.amenities.map((amenity: string, index: number) => (
             <li key={index}>
               <FaCheck className="inline-block text-green-600 mr-2" /> {amenity}
             </li>

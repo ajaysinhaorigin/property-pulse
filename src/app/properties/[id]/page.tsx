@@ -1,44 +1,47 @@
-'use client';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import { FaArrowLeft } from 'react-icons/fa';
+"use client"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import { useParams } from "next/navigation"
+import { FaArrowLeft } from "react-icons/fa"
 import {
   BookmarkButton,
-  getProperty,
   PropertyContactForm,
   PropertyDetails,
   PropertyHeaderImage,
   PropertyImages,
+  PropertyModel,
   ShareButtons,
   Spinner,
-} from '@/Shared';
+} from "@/Shared"
+import { apiUrls } from "@/Shared/Tools"
 
 const PropertyPage = () => {
-  const { id } = useParams();
-  const [property, setProperty] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const { id } = useParams()
+  const [property, setProperty] = useState<PropertyModel>(new PropertyModel())
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchPropertyData = async () => {
-      if (!id) return;
-      try {
-        const property = await getProperty(id as string);
-        setProperty(property);
-      } catch (error) {
-        console.error('Error fetching property:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchPropertyData()
+  }, [id])
 
-    if (property === null) {
-      fetchPropertyData();
+  const fetchPropertyData = async () => {
+    try {
+      const response = await fetch(`${apiUrls.properties}/${id}`)
+      const property = await response.json()
+      setProperty(PropertyModel.deserialize(property))
+    } catch (error) {
+      console.error("Error fetching property:", error)
+    } finally {
+      setLoading(false)
     }
-  }, [id, property]);
+  }
 
   if (!property && !loading) {
-    return <h1 className="text-center text-2xl font-bold mt-10">Property Not Found</h1>;
+    return (
+      <h1 className="text-center text-2xl font-bold mt-10">
+        Property Not Found
+      </h1>
+    )
   }
 
   return (
@@ -49,7 +52,10 @@ const PropertyPage = () => {
           <PropertyHeaderImage image={property.images[0]} />
           <section>
             <div className="container m-auto py-6 px-6">
-              <Link href="/properties" className="text-blue-500 hover:text-blue-600 flex items-center">
+              <Link
+                href="/properties"
+                className="text-blue-500 hover:text-blue-600 flex items-center"
+              >
                 <FaArrowLeft className="mr-2" /> Back to Properties
               </Link>
             </div>
@@ -71,6 +77,6 @@ const PropertyPage = () => {
         </>
       )}
     </>
-  );
-};
-export default PropertyPage;
+  )
+}
+export default PropertyPage

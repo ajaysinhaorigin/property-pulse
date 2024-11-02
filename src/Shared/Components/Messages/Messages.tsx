@@ -1,31 +1,32 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { useState, useEffect } from "react"
 import Spinner from "../Spinner/Spinner"
 import Message from "./Message"
+import { apiUrls } from "@/Shared/Tools"
+import { MessageModel } from "@/Shared/Models"
 
 const Messages = () => {
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState<MessageModel[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const getMessages = async () => {
-      try {
-          const res = await fetch("/api/v1/messages")
-
-        if (res.status === 200) {
-          const data = await res.json()
-          setMessages(data)
-        }
-      } catch (error) {
-        console.log("Error fetching messages: ", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
     getMessages()
   }, [])
+
+  const getMessages = async () => {
+    try {
+      const res = await fetch(apiUrls.messages)
+
+      if (res.status === 200) {
+        const data = await res.json()
+        setMessages(MessageModel.deserializeList(data))
+      }
+    } catch (error) {
+      console.log("Error fetching messages: ", error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return loading ? (
     <Spinner />
@@ -39,8 +40,8 @@ const Messages = () => {
             {messages.length === 0 ? (
               <p>You have no messages</p>
             ) : (
-              messages.map((message: any) => (
-                <Message key={message._id} message={message} />
+              messages.map((message) => (
+                <Message key={message.id} message={message} />
               ))
             )}
           </div>

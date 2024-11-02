@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
+import { PropertyModel } from '@/Shared/Models';
+import { apiUrls } from '@/Shared/Tools';
 
 interface Props{
-    property:any
+    property:PropertyModel
 }
 
 const PropertyContactForm = ({ property }:Props ) => {
@@ -17,7 +18,7 @@ const PropertyContactForm = ({ property }:Props ) => {
   const [phone, setPhone] = useState('');
   const [wasSubmitted, setWasSubmitted] = useState(false);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
@@ -26,11 +27,11 @@ const PropertyContactForm = ({ property }:Props ) => {
       phone,
       message,
       recipient: property.owner,
-      property: property._id,
+      property: property.id,
     };
 
     try {
-      const res = await fetch('/api/v1/messages', {
+      const res = await fetch(apiUrls.messages, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

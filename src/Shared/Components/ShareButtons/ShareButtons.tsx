@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { PropertyModel } from '@/Shared/Models';
 import {
     FacebookShareButton,
     TwitterShareButton,
@@ -11,11 +11,11 @@ import {
   } from 'react-share';
   
 interface Props{
-  property: any
+  property: PropertyModel
 }
 
   const ShareButtons = ({ property }: Props) => {
-    const shareUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/properties/${property._id}`;
+    const shareUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/properties/${property.id}`;
   
     return (
       <>
@@ -25,7 +25,7 @@ interface Props{
         <div className='flex gap-3 justify-center pb-5'>
           <FacebookShareButton
             url={shareUrl}
-            quote={property.name}
+            // quote={property.name}
             hashtag={`#${property.type.replace(/\s/g, '')}ForRent`}
           >
             <FacebookIcon size={40} round={true} />

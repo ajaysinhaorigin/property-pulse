@@ -6,7 +6,6 @@ export const dynamic = 'force-dynamic';
 
 // GET /api/messages/unread-count
 export const GET = async (request) => {
-  console.log('request', request)
   try {
     await connectDB();
 
