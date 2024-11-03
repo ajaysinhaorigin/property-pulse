@@ -1,5 +1,5 @@
 import connectDB from "@/Config/dbConnection"
-import Property from "@/Models/Property.js"
+import Property from "@/models/Property"
 import { getSessionUser } from "@/Shared/Utils/getSessionUser"
 import cloudinary from "@/Config/cloudinary"
 

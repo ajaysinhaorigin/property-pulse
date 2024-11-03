@@ -1,4 +1,4 @@
-import Message from '@/Models/Message';
+import Message from '@/models/Message';
 import connectDB from "@/Config/dbConnection"
 import { getSessionUser } from "@/Shared/Utils/getSessionUser"
 

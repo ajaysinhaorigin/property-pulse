@@ -1,5 +1,5 @@
-import User from '@/Models/User.js';
-import Property from '@/Models/Property.js';
+import User from '@/models/User';
+import Property from '@/models/Property';
 import connectDB from '@/Config/dbConnection';
 import { getSessionUser } from '@/Shared/Utils/getSessionUser';
 
