@@ -1,5 +1,5 @@
 import connectDB from "@/Config/dbConnection"
-import User from '@/Models/User';
+import User from '@/Models/User.js';
 import { getSessionUser } from "@/Shared/Utils/getSessionUser"
 export const dynamic = 'force-dynamic';
 
