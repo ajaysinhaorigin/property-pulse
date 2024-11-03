@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import connectDB from '@/Config/dbConnection';
-import User from '@/Models/User.js';
+import User from '@/models/User';
 import GoogleProvider from 'next-auth/providers/google';
 
 export const authOptions = {
