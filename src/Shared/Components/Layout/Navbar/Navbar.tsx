@@ -2,12 +2,12 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { LogoWhite, ProfileDefault } from '@/Assets/images';
 import { FaGoogle } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import { signIn, signOut, useSession, getProviders, LiteralUnion, ClientSafeProvider } from 'next-auth/react';
 import { BuiltInProviderType } from 'next-auth/providers/index';
 import UnreadMessageCount from '../../UnreadMessageCount/UnreadMessageCount';
+import { LogoWhite, ProfileDefault } from '@/Assets';
 
 const Navbar = () => {
   const { data: session } = useSession();
