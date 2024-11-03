@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import { useState, useEffect } from "react"
 import Spinner from "../Spinner/Spinner"
@@ -10,7 +11,7 @@ const Properties = () => {
   const [properties, setProperties] = useState<PropertyModel[]>([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
-  const [pageSize,_] = useState(9)
+  const [pageSize,setPageSize] = useState(9)
   const [totalItems, setTotalItems] = useState(0)
 
   useEffect(() => {
