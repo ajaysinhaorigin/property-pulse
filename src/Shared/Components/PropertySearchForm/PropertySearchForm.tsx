@@ -3,11 +3,12 @@ import { FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
 
 interface Props {
+  storedLocation?: string
   storedPropertyType?: string
 }
 
-const PropertySearchForm = ({ storedPropertyType }: Props) => {
-  const [location, setLocation] = useState("")
+const PropertySearchForm = ({ storedLocation, storedPropertyType }: Props) => {
+  const [location, setLocation] = useState(storedLocation || "")
   const [propertyType, setPropertyType] = useState(storedPropertyType || "All")
 
   const router = useRouter()
