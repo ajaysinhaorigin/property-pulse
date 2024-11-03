@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Message from '@/models/Message';
 import connectDB from "@/Config/dbConnection"
 import { getSessionUser } from "@/Shared/Utils/getSessionUser"
