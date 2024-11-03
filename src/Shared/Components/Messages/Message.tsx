@@ -23,7 +23,7 @@ const Message = ({ message }: Props) => {
       if (res.status === 200) {
         const { read } = await res.json()
         setIsRead(read)
-        setUnreadCount((prevCount: any) =>
+        setUnreadCount((prevCount) =>
           read ? prevCount - 1 : prevCount + 1
         )
         if (read) {
@@ -46,7 +46,7 @@ const Message = ({ message }: Props) => {
 
       if (res.status === 200) {
         setIsDeleted(true)
-        setUnreadCount((prevCount: any) => prevCount - 1)
+        setUnreadCount((prevCount) => prevCount - 1)
         toast.success("Message Deleted")
       }
     } catch (error) {

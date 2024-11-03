@@ -5,7 +5,6 @@ const FeaturedProperties = async () => {
   const properties = await getProperties({
     showFeatured: true,
   })
-  console.log("properties", properties)
 
   return (
     properties.length > 0 && (
