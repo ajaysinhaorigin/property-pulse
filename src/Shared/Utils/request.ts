@@ -11,7 +11,9 @@ async function getProperties({ showFeatured = false } = {}) {
     }
 
     const res = await fetch(
-      `${apiDomain}/properties${showFeatured ? "/featured" : ""}`,
+      `https://property-pulse-swart-eta.vercel.app/api/v1/properties${
+        showFeatured ? "/featured" : ""
+      }`,
       { cache: "no-store" }
     )
 
