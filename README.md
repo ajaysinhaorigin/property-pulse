@@ -21,7 +21,7 @@ Here are some of the current features that Property Pulse has:
 - [x] Property sharing to social media
 - [x] Loading spinners
 - [x] Responsive design (Tailwind)
-- [x] Custom 404 page
+- [x] Custom 404 page.
 
 Property Pulse uses the following technologies:
 
