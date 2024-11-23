@@ -34,4 +34,4 @@ Property Pulse uses the following technologies:
 - [React Icons](https://react-icons.github.io/react-icons/)
 - [Cloudinary](https://cloudinary.com/)
 - [React Toastify](https://fkhadra.github.io/react-toastify/)
-- [React Share](https://www.npmjs.com/package/react-share).
+- [React Share](https://www.npmjs.com/package/react-share)
